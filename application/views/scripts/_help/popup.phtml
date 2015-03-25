@@ -1,0 +1,13 @@
+<div id="ops-help-block-<?php echo $this->identifier;?>" class="ops-help-block" style="display: none;">
+    <div class="ops-help-header">
+        <?php echo $this->title; ?>
+        <a href="#" class="ops-help-close ops-help-close-button"><img src="<?php echo Ops_WpPlugin::getPluginBaseUrl();?>/images/close-help.gif" width="16" height="16" alt="Close" title="Close" /></a>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="ops-help-tipmsg">
+        <p><?php require_once dirname(__FILE__) . "/tooltips/{$this->folder}/{$this->identifier}.phtml"; ?></p>
+    </div>
+    <div class="ops-help-footer">
+        <a href="#" class="ops-help-close ops-help-close-text">close</a>
+    </div>
+</div>

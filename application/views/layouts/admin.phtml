@@ -1,0 +1,40 @@
+<?php
+if (!isset($this->pageIcon)) {
+    $this->pageIcon = 'icon-plugins';
+}
+if (!isset($this->containerId)) {
+    $this->containerId = 'ops-admin';
+}
+?>
+<div class="wrap" id="<?php echo $this->containerId; ?>">
+    <div class="icon32" id="<?php echo $this->pageIcon; ?>"></div>
+    <h2><?php echo $this->escape(isset($this->pageTitle)? $this->pageTitle : Ops_WpPlugin::TITLE); ?></h2>
+
+    <div id="messages-container">
+    <?php
+        if ($this->messages) {
+            foreach ($this->messages as $message) {
+            ?>
+                <div class="<?php echo $message['class'];?>">
+                    <p><strong><?php echo $this->escape($message['text']); ?></strong></p>
+                </div>
+            <?php
+            }
+        }
+    ?>
+    </div>
+
+    <?php if (!$this->hideHeaderTabs): ?>
+        <?php require 'partial/headerTabs.phtml'; ?>
+    <?php endif; ?>
+
+    <?php echo $this->content; ?>
+
+    <div class="clear"></div>
+</div>
+<?php
+echo $this->partial('../scripts/_help/popup.phtml', array(
+    'folder' => 'admin',
+    'identifier' => 'main',
+    'title' => Ops_WpPlugin::TITLE,
+));

@@ -1,0 +1,38 @@
+<div class="tablenav-pages">
+    <span class="displaying-num"><?php echo $wpQuery->found_posts; ?> items</span>
+    <span class="pagination-links">
+        <a class="ops_paged-link first-page<?php if (1 == $paged):?> disabled<?php endif;?>"
+            title="first page"
+            href="#"
+            data-paged="1"
+        >&laquo;</a>
+        <a class="ops_paged-link prev-page<?php if (1 == $paged):?> disabled<?php endif;?>"
+            title="previous page"
+            href="#"
+            data-paged="<?php echo $prevPage; ?>"
+        >&lsaquo;</a>
+        <span class="paging-input">
+            <?php if ('top' == $navType):?>
+                <input type="text" name="paged" id="paged-text"
+                    class="current-page ops_navigation-text"
+                    title=""
+                    value="<?php  echo $paged; ?>" size="1"
+                />
+            <?php else: ?>
+                <?php echo $paged; ?>
+            <?php endif; ?>
+                of&nbsp;<span class="total-pages"><?php echo $numPages; ?></span>
+        </span>
+        <a class="ops_paged-link next-page<?php if ($numPages == $paged):?> disabled<?php endif;?>"
+            title="next page"
+            href="#"
+            data-paged="<?php echo $nextPage; ?>"
+        >&rsaquo;</a>
+        <a class="ops_paged-link last-page<?php if ($numPages == $paged):?> disabled<?php endif;?>"
+            title="last page"
+            href="#"
+            data-paged="<?php echo $numPages; ?>"
+        >&raquo;</a>
+    </span>
+</div>
+<br class="clear" />

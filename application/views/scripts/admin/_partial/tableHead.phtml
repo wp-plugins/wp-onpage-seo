@@ -1,0 +1,24 @@
+<tr>
+    <th scope="col" class="manage-column checkbox-column">
+        <input class="ops_post-all" title="Check/Uncheck All" type="checkbox" />
+    </th>
+    <?php foreach ($columns as $name=>$column): ?>
+        <?php if ($column['sortable']): ?>
+            <th scope="col"
+                class="manage-column <?php echo $name == $orderby? 'sorted' : 'sortable'; ?> <?php echo $order; ?>"
+            >
+                <a href="#" class="ops_order-link"
+                    data-orderby="<?php echo $name; ?>"
+                    data-order="<?php echo 'asc'==$order? 'desc' : 'asc'; ?>"
+                >
+                    <span><?php echo $this->escape($column['label']); ?></span>
+                    <span class="sorting-indicator"></span>
+                </a>
+            </th>
+        <?php else: ?>
+            <th scope="col" class="manage-column">
+                <span><?php echo $column['label'] ? $this->escape($column['label']) : '&nbsp'; ?></span>
+            </th>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</tr>

@@ -1,0 +1,236 @@
+/**
+* WP On-Page SEO admin page styles
+*/
+
+/* Main page */
+
+#ops-admin .tablenav .left-col {
+    float: left;
+}
+
+#ops-admin .tablenav .right-col {
+    text-align: right;
+}
+
+#ops-admin .ops_factor_list-container h3 {
+    padding: 0.5em;
+    cursor: default;
+    margin: 0;
+}
+
+#ops-admin .ops_factor_list-container h3 span.ops_title {
+    font-weight: bold;
+}
+
+#ops-admin .ops-help_main {
+    float: right;
+}
+
+#ops-admin #ops_factor-all-label span {
+    font-weight: bold;
+}
+
+#ops-admin .inside {
+    margin: 0;
+    padding: 12px;
+}
+
+#ops-admin #ops_admin-input-factors {
+    margin: 0;
+    padding: 0;
+}
+
+#ops-admin .ops_admin-input-factors li {
+    display: inline;
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+    padding-right: 1em;
+    margin-bottom: 0;
+    min-height: 18px;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+#ops-admin .ops_admin-input-factors li input[type="checkbox"] {
+    background-color: white;
+}
+
+#ops-admin .checkbox-column input {
+    margin: 0 !important;
+}
+
+#ops-admin th.checkbox-column {
+    padding-left: 8px;
+}
+
+#ops-admin .ops_search-box {
+    text-align: right;
+    padding-top: 5px;
+}
+
+#ops-admin .ops_post_status-list {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#ops-admin #ops_optimize-box {
+    margin-top: 6px;
+}
+
+#ops-admin #ops_post-type-container {
+   position: relative;
+   top: 10px;
+}
+
+#ops-admin #ops_post-type-container span {
+    position: relative;
+    top: 1px;
+}
+
+#ops-admin .ops_keyword {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+#ops-admin .ops_posts_per_page-container .ops_posts_per_page {
+    width: 3em;
+}
+
+#ops-admin #ops_admin-table-posts td.keyword-column {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#ops-admin #ops_admin-table-posts td.keyword-column input {
+    margin-bottom: 2px;
+}
+
+#ops-admin #ops_admin-table-posts .checkbox-column {
+    padding-top: 10px;
+    padding-bottom: 0;
+    vertical-align: top;
+}
+
+#ops-admin .ops_top_menu {
+    width: 100%;
+}
+
+#ops-admin #ops_optimizing-progress {
+    display: none;
+    margin-bottom: 1em;
+}
+
+#ops-admin #ops_optimizing-status {
+    vertical-align: middle;
+}
+
+#ops-admin #ops_optimizing-progressbar {
+    margin: 0.5em 0;
+}
+
+#ops-admin #ops_optimizing-status .ajax-loading {
+    position: relative;
+    top: 3px;
+}
+
+#ops-admin .ops_optimizing-status-text {
+    font-weight: bold;
+}
+
+#ops-admin .ops_optimizing-cancel {
+    display: block;
+    float: right;
+}
+
+#ops-admin .ops_optimizing_item-status {
+    font-style: italic;
+    display: none;
+}
+
+#ops-admin .ops_optimizing_item-status .ajax-loading {
+    position: relative;
+    top: 3px;
+}
+
+#ops-admin #ops_admin-table-posts .tools-column {
+    padding: 0;
+}
+
+#ops-admin tr.ops_admin-table-row .ops_status {
+    background-repeat: no-repeat;
+    margin-bottom: 2px;
+    min-height: 16px;
+    width: 16px;
+    vertical-align: text-bottom;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+#ops-admin .ops_status_optimize-yes {
+    background-image: url('../images/factor_yes.png');
+}
+
+.ops_admin-screen-main #extra_content_mode-label {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+#ops-admin .ops_post-type {
+    display: inline;
+}
+
+/* Page loader */
+
+#ops-page-loading {
+    position: absolute;
+    right: 0;
+    padding: 5px 15px;
+    font-size: 10px;
+    background-color: white;
+}
+
+#ops-page-loading .ops-page-loading-animation {
+    position: relative;
+    top: 2px;
+    background-image: url(../images/ajax-loader.gif);
+    width: 16px;
+    height: 11px;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+/* Options page */
+
+#ops-admin table.form-table th {
+    width: 250px;
+}
+
+#ops-admin #bing_api_key {
+    width: 30em;
+}
+
+#ops-admin #default_factors {
+    max-width: 400px;
+}
+
+#ops-admin #default_factors ul {
+    margin: 0;
+    padding: 0;
+}
+
+#ops-admin #default_factors ul li {
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    padding-right: 1em;
+    margin: 0;
+}
+
+#default_factors-all-label span {
+    font-weight: bold;
+}

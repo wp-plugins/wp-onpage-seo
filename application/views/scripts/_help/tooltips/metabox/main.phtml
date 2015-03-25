@@ -1,0 +1,36 @@
+<p><strong>How WP On-Page SEO  works:</strong></p>
+<p><strong>Summary:</strong> Enter a keyword to optimize your content for. Select as many of the SEO factors as you want. Click the blue <em>&quot;Optimize and Update&quot;</em> button.</p>
+<p><strong>Optimization settings</strong>: Sellect which of the SEO factors you want to apply to the posts or pages, by checking them.</p>
+<p>The mass-optimization screen and the individual post/page &quot;widget&quot; communicate. For example:</p>
+<ul>
+  <li> If you use this admin area and optimize post id 1 for the term dog training, next time you go to edit that particular post alone, the term dog training should appear in the right-hand-side widget.<br>
+    </li>
+  <li>If you edit post id 1 from the &quot;edit post/page&quot; screen's right-hand-side widget for the term dog training, that keyword will also be added to the mass optimization table as well.</li>
+</ul>
+<p>The later actions will override older actions. For example:</p>
+<ul>
+  <li> If you use the mass optimization area and optimize post id 1 for the term dog training, next time you go to edit that particular post alone from the &quot;edit post&quot; screen, you can enter the term &quot;dog training tips&quot; and now THAT keyword would appear in the mass-optimization screen if you visited it later.</li>
+  <li>If you edit post id 1 for the term dog training, that keyword would be seen in the mass optimization screen as well. But if you change the required keyword here to dog training tips and then click the mass optimize button, that new keyword dog training tips would also show in the right-hand-side widget in that individual post's edit screen.</li>
+</ul>
+<p><strong>Here are the factors you can optimize your posts/pages for:</strong></p>
+<ul>
+  <li><strong>Meta Title: </strong>Adds the keyword at the end of the title, separated by a hyphen. For example, if the keyword is <em>dog training</em>, your title may become: <em>&quot;10 tips to housebreak your puppy - dog training&quot;</em>. This feature may not work if another plugin manipulates the title (it should work 90% of the time though).</li>
+  <li><strong>Meta Keywords: </strong>Takes the existing tags of the page and ads them as keywords. It also appends your desired keyword as the very last keyword.</li>
+  <li><strong>Meta Description:</strong> It adds your desired keyword at the beginining of the meta description, followed by the post/page excerpt. Format: <em>{keyword} - {post excerpt}</em></li>
+  <li><strong>Permalink: </strong>This is one of the most powerful features of WP On-Page SEO. The URL plays a huge role into how relevant your post is for a term. This feature will take your existing permalink that may look something like: <em>your-blog.com/this-is-a-post-about-keyword-phrase</em> and turn it into: <em>your-blog.com/keyword-phrase</em>. Notice how much cleaner it looks. Please keep in mind that in some cases, there may be conflicts with other urls on your blog that have already &quot;reserved&quot; the url (for example, a category with the url your-blog.com/keyword-phrase. In that case, the permalink function may not work. <font color="#FF0000"><strong>Attention:</strong></font> In order for this function to work, please make sure your <a href="options-permalink.php" target="_blank">pemalink settings</a> are set to something like: <em>Post name: your-blog/sample-post/</em> or: <em>Custom structure: /%postname%/</em></li>
+  <li><strong>H1: </strong>Adds the keyword within H1 tags at the very top of the content area. This won't happen if your keyword is already present within H1 tag somewhere on the entire page (not just the content area).</li>
+  <li><strong>H2:</strong> Adds the keyword within H2 tags at the bottom of the content. This won't happen if your keyword is already present within H2 tag somewhere on the entire page (not just the content area).</li>
+  <li><strong>H3: </strong>Adds the keyword within H3 tags at the bottom of the content. This won't happen if your keyword is already present within H3 tag somewhere on the entire page (not just the content area).</li>
+  <li><strong>Image name:</strong> Gives a keyword-relevant name to the first image in your content. For example, if you are trying to optimize your content for the term &quot;lose weight&quot; and the image in your post is named image.jpeg, it will be renamed to lose-weight.jpeg. Requires an image to be present in the content.</li>
+  <li><strong>Image alt:</strong> Adds your keyword as the alt tag for the first image in your content. Requires an image to be present in the content.</li>
+  <li><strong>Bold:</strong> Finds the first occurence of the keyword in the content. and makes it <strong>bold</strong></li>
+  <li><strong>Italics:</strong> Finds the second occurence of the keyword in the content. and makes it <em>italicized</em></li>
+  <li><strong>Underline:</strong> Finds the third occurence of the keyword in the content. and <u>underlines</u> it.</li>
+  <li>*If your keyword appears nowhere in your content area, then the plugin will add the term in bold, italics and underlined at the bottom of your content.</li>
+  <li><strong>Add link to this post: </strong>Finds the second occurence of your keyword in the post/page and hyperlinks it to the post/page itself. If your keyword appears nowhere in your content area, then the plugin will add the term at the bottom of your content and hyperlink it.</li>
+  <li><strong>Add link to homepage:</strong> Finds the third occurence of your keyword in the post/page and hyperlinks it to homepage. If your keyword appears nowhere in your content area, then the plugin will add the term at the bottom of your content and hyperlink it.</li>
+  <li><strong>Add related search terms:</strong> Queries Bing.com and returns related terms. Those terms will be added to the bottom of the content, separated by commas, as &quot;related terms.&quot; Great for adding LSI (latent semantic indexing) keywords in your content, which Google loves. No terms will be added if the Bing API returns no results for whatever reason.</li>
+</ul>
+<p><strong>Smart filtering: </strong>When WP On-Page SEO optimizes your posts, you will NOT be able to see these changes in &quot;edit mode.&quot; But the changes WILL show when you view the post or page itself (which is what counts). This is done because the plugin uses smart filtering to add the necessary factors in your content &quot;on the fly.&quot; This means that you can focus on editing the content itself, if you want, while WP On-Page SEO takes care of the optimization part.</p>
+
+<p><strong>Grayed-out factor names:</strong> If the name of the factor itself is grayed out, then it means that this factor can't be satisfied, because a required element is missing. For example, if there's no image within the content area, then the image name and the image alt tag aren't conditions that can be applied, so they would be disabled. Or, when the Bing API doesn't return any related terms for the keyword, then no related terms can be applied.</p>

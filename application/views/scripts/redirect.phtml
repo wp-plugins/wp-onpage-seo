@@ -1,0 +1,15 @@
+<?php
+$this->layout->pageTitle = Ops_WpPlugin::TITLE;
+$this->layout->headerTabs = NULL;
+
+$url = $this->escape($this->url);
+?>
+<h3>Redirecting...</h3>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    window.location = "<?php echo $this->url;?>";
+/* ]]> */
+</script>
+Redirected to: <a href="<?php echo $url;?>"><?php echo $url;?></a>.<br />
+<a href="<?php echo $url;?>">Click here</a> if your browser does not support redirection.

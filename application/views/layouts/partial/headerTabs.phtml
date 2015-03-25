@@ -1,0 +1,27 @@
+<ul class="subsubsub ops_top_menu">
+    <li class="ops-help_main"><a href="#" class="ops-help-link" data-identifier="main">Help</a></li>
+<?php
+if ($this->headerTabs) {
+    $count = count($this->headerTabs);
+    $i = 1;
+    foreach ($this->headerTabs as $key=>$tab) {
+        echo $this->htmlTag('li', self::TAG_OPEN);
+        echo $this->htmlTag('a', $this->escape($tab['label']),
+            array(
+                'href' => $tab['url'],
+                'class' => ($key == $this->currentHeaderTab)
+                    ? array('current')
+                    : array(),
+            )
+        );
+        echo ($i < $count)? ' | ' : ' || ';
+        echo $this->htmlTag('li', self::TAG_CLOSED);
+
+        $i++;
+    }
+}
+?>
+    <li><a href="<?php echo Ops_WpPlugin::PLUGIN_BASE_URL; ?>wp-on-page-seo-plugin" target="_blank">Visit Support Blog</a> | </li>
+    <li><a href="<?php echo Ops_WpPlugin::PLUGIN_BASE_URL; ?>contact" target="_blank">Contact Webmaster</a></li>
+</ul>
+<div class="clear"></div>

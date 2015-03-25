@@ -1,0 +1,204 @@
+<?php
+$factors = $this->optimization->getDisplayData();
+$naFactorHelps = array(
+    'ImgNameContain' => 'image',
+    'ImgAltContain' => 'image',
+    'RelatedTerms' => 'terms',
+    'H1Contain' => 'heading',
+    'H2Contain' => 'heading',
+    'H3Contain' => 'heading',
+    'DecorationBold' => 'decoration',
+    'DecorationItalic' => 'decoration',
+    'DecorationUnderlined' => 'decoration',
+    'LinkToHome' => 'decoration',
+    'LinkToPost' => 'decoration',
+);
+$richMessages = array(
+    'Error gettng related terms: You are not subscribed to the Bing API service' =>
+        'Error gettng related terms: You are not subscribed to the Bing API service.<br />
+        <a href="http://www.wpthorp.com/" target="_blank">View the solution</a>.',
+);
+$extraContentModeOptions = Ops_Application::getService('Optimization')
+    ->getExtraContentModeOptions(TRUE);
+?>
+<div id="ops-help-bkg" style="display: none;"></div>
+
+<div id="ops_metabox">
+    <input type="hidden" id="ops_metabox_save" name="ops_metabox_save" value="1" />
+
+    <ul class="ops_metabox-message">
+        <?php foreach ($this->errors as $error): ?>
+            <li class="error">
+                <?php if (isset($richMessages[$error])): ?>
+                    <?php echo $richMessages[$error]; ?>
+                <?php else: ?>
+                    <?php echo $this->escape($error); ?>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <div class="ops_metabox-form ops_metabox-form-top">
+        <div class="ops_metabox-field" id="ops_keyword-field">
+            <label class="ops_metabox-label" id="ops_keyword-label" for="ops_keyword">Keyword: </label>
+            <input type="text" id="ops_keyword" name="ops_keyword" class="ops_input" value="<?php echo $this->escape($this->form->getValue('keyword')); ?>" />
+        </div>
+    </div>
+    <ul id="ops_metabox-input-factors">
+        <li>
+            <label for="ops_metabox-factor-all" id="ops_metabox-factor-all-label">
+                <input id="ops_metabox-factor-all" name="ops_metabox-factor-all"
+                    type="checkbox"
+                />
+                <span>(Check/Uncheck All)</span>
+            </label>
+        </li>
+        <?php foreach ($factors as $data): ?>
+            <?php
+                $attributes = array();
+
+                if ($data['selected']) {
+                    $attributes['checked'] = 'checked';
+                }
+
+                $forceSelected = FALSE;
+                if (!$data['configured']) {
+                    $status = 'none';
+                    unset($attributes['checked']);
+                    $attributes['disabled'] = 'disabled';
+                } else if (is_null($data['value'])) {
+                    $status = 'none';
+                } else if (Ops_Service_Optimization::STATUS_NA == $data['value']) {
+                    $status = 'na';
+                    //$attributes['disabled'] = 'disabled';
+                } else if (Ops_Service_Optimization::STATUS_NO == $data['value']) {
+                    $status = $data['selected']? 'yes' : 'no';
+                } else if (Ops_Service_Optimization::STATUS_YES == $data['value']) {
+                    $status = 'yes';
+                    $attributes['disabled'] = 'disabled';
+                    $attributes['checked'] = 'checked';
+                    $forceSelected = TRUE;
+                } else {
+                    $status = 'none';
+                }
+            ?>
+            <li class="ops_metabox-factor ops_metabox-factor_<?php echo $status; ?>">
+                <label class="ops_metabox-factors_bool"
+                     for="ops_metabox-factor-<?php echo $this->escape($data['name']); ?>"
+                >
+                    <?php if ($forceSelected): ?>
+                        <input type="hidden" name="ops_metabox-factor[]"
+                            value="<?php echo $this->escape($data['name']); ?>"
+                            id="ops_metabox-factor-force-<?php echo $this->escape($data['name']); ?>"
+                            class="ops_metabox-factor-force"
+                        />
+                    <?php endif; ?>
+                    <input type="checkbox"
+                        name="ops_metabox-factor[]"
+                        id="ops_metabox-factor-<?php echo $this->escape($data['name']); ?>"
+                        value="<?php echo $this->escape($data['name']); ?>"
+                        <?php foreach ($attributes as $name=>$val): ?>
+                            <?php echo $name; ?>="<?php echo $val; ?>"
+                        <?php endforeach; ?>
+                    />
+                    <span>
+                        <?php echo $this->escape($data['label']); ?>
+                        <?php if (!$data['configured']): ?>
+                            (<a href="<?php echo admin_url('admin.php?page=' . Ops_WpPlugin::SLUG . '-options'); ?>">configure</a>)
+                        <?php endif; ?>
+                    </span>
+                </label>
+                <?php if (Ops_Service_Optimization::STATUS_NA == $data['value'] && $data['configured'] && isset($naFactorHelps[$data['name']])): ?>
+                    (<a href="#" class="ops-help-link" data-identifier="na-<?php echo $naFactorHelps[$data['name']]; ?>">?</a>)
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+     <div class="ops_metabox-form ops_metabox-form-bottom">
+        <div class="ops_metabox-field" id="ops_extra_content_mode-field">
+            <label class="ops_metabox-label" id="ops_extra_content_mode-label" for="ops_extra_content_mode">
+                Extra Content Keywords:
+                <span class="ops-help-link-wrap">(<a href="#" class="ops-help-link" data-identifier="extra_content_mode">help</a>)</span>
+            </label>
+            <fieldset id="ops_extra_content_mode">
+                <legend class="screen-reader-text"><span>Extra Content Keywords:</span></legend>
+
+                <?php $value = $this->form->getValue('extra_content_mode'); ?>
+
+                <?php $id = "ops_extra_content_mode-option-default"; ?>
+                <label id="<?php echo $id; ?>-label"
+                    for="<?php echo $id; ?>"
+                    class="ops-radio"
+                >
+                    <input type="radio"
+                        id="<?php echo $id; ?>"
+                        name="ops_extra_content_mode"
+                        value=""
+                        <?php if ('' == $value): ?>
+                            checked="checked"
+                        <?php endif; ?>
+                    />
+                    <span>
+                        use general setting<br />
+                        <em>(<?php echo $this->escape($extraContentModeOptions[Ops_Application::getModel('Options')->getValue('extra_content_mode')]); ?>)</em>
+                    </span>
+                </label>
+
+                <?php foreach ($extraContentModeOptions as $key=>$label): ?>
+                    <?php $id = "ops_extra_content_mode-option-{$key}"; ?>
+                    <label id="<?php echo $id; ?>-label"
+                        for="<?php echo $id; ?>"
+                        class="ops-radio"
+                    >
+                        <input type="radio"
+                            id="<?php echo $id; ?>"
+                            name="ops_extra_content_mode"
+                            value="<?php echo $key; ?>"
+                            <?php if ($key == $value): ?>
+                                checked="checked"
+                            <?php endif; ?>
+                        />
+                        <span>
+                            <?php echo $this->escape($label); ?>
+                        </span>
+                    </label>
+                <?php endforeach; ?>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="ops_metabox-button_update-container">
+        <img class="ajax-loading" id="ops_metabox-update_ajax_loader" src="<?php echo esc_url(admin_url('images/wpspin_light.gif')); ?>" alt="Loading..." width="16" height="16" />
+        <button type="button" class="button-primary ops_metabox-button_update">Optimize &amp; Update</button>
+    </div>
+    <br class="clear" />
+    <div class="ops_metabox-links">
+        <a href="admin.php?page=<?php echo Ops_WpPlugin::SLUG; ?>">Mass&nbsp;Optimization&nbsp;Screen</a>
+        <br />
+        <a href="#" class="ops-help-link" data-identifier="main">Instructions</a>
+        |
+        <a href="<?php echo Ops_WpPlugin::PLUGIN_BASE_URL; ?>wp-on-page-seo-plugin" target="_blank">Support Blog</a>
+    </div>
+</div>
+
+<?php
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'metabox',
+    'identifier' => 'main',
+    'title' => Ops_WpPlugin::TITLE,
+));
+
+foreach (array_unique($naFactorHelps) as $helpId) {
+    echo $this->partial('_help/popup.phtml', array(
+        'folder' => 'metabox',
+        'identifier' => 'na-' . $helpId,
+        'title' => "Unable to satisfy this factor",
+    ));
+}
+
+// Extra content options
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'metabox',
+    'identifier' => 'extra_content_mode',
+    'title' => 'Extra Content Keywords:',
+));

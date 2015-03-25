@@ -1,0 +1,307 @@
+<?php
+$this->layout->pageTitle = Ops_WpPlugin::TITLE . ': Options';
+$extraContentModeOptions = Ops_Application::getService('Optimization')
+    ->getExtraContentModeOptions();
+
+$autoOptimizationOptions = $this->form->getAutoOptimizationOptions();
+$autoOptimizationOptions['keyword'] .= ':';
+?>
+<div class="form-wrap">
+    <form id="ops-options-form" class="ops_admin-screen-options" action="#" method="post">
+
+        <h3>Default Settings</h3>
+
+        <table class="form-table">
+        <tbody>
+
+            <?php $name = 'auto_optimization'; ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Automatic Future SEO:
+                        (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                    </label>
+                </th>
+                <td>
+                    <fieldset id="<?php echo $name; ?>">
+                        <legend class="screen-reader-text"><span>Automatic Future SEO</span></legend>
+
+                        <?php $value = $this->form->getValue($name); ?>
+                        <?php foreach ($autoOptimizationOptions as $key=>$label): ?>
+                            <?php $id = "{$name}-option-{$key}"; ?>
+                            <label id="<?php echo $id; ?>-label"
+                                for="<?php echo $id; ?>"
+                                class="ops-radio"
+                            >
+                                <input type="radio"
+                                    id="<?php echo $id; ?>"
+                                    class="ops-checkbox-input"
+                                    name="<?php echo $name; ?>"
+                                    value="<?php echo $key; ?>"
+                                    <?php if ($key == $value): ?>
+                                        checked="checked"
+                                    <?php endif; ?>
+                                />
+                                <span>
+                                    <?php echo $this->escape($label); ?>
+                                </span>
+                            </label>
+                        <?php endforeach; ?>
+
+                        <?php $name = 'auto_optimization_keyword'; ?>
+                        <input type="text" name="<?php echo $name; ?>"
+                            id="<?php echo $name; ?>"
+                            class="regular-text"
+                            value="<?php echo $this->escape($this->form->getValue($name)); ?>"
+                        />
+                        (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                       </fieldset>
+                </td>
+            </tr>
+
+            <?php $name = 'default_factors'; ?>
+            <?php $value = (array)$this->form->getValue($name); ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Default SEO Factors:
+                        (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                    </label>
+                </th>
+                <td>
+                    <fieldset id="<?php echo $name; ?>">
+                        <legend class="screen-reader-text"><span>Default SEO Factors</span></legend>
+                        <label for="<?php echo $name; ?>-all" id="<?php echo $name; ?>-all-label">
+                            <input id="<?php echo $name; ?>-all" name="<?php echo $name; ?>-all"
+                                type="checkbox"
+                            />
+                            <span>Check/Uncheck All</span>
+                        </label>
+                        <ul id="<?php echo $name; ?>-ul">
+                            <?php foreach (Ops_Application::getService('Optimization')->getFactors() as $key=>$factor): ?>
+                                <li>
+                                    <?php $id = "{$name}-option-{$key}"; ?>
+                                    <label id="<?php echo $id; ?>-label"
+                                        for="<?php echo $id; ?>"
+                                        class="ops-checkbox"
+                                        <?php if ('RelatedTerms' == $key): ?>
+                                            title="This factors requires Bing API key set"
+                                        <?php endif; ?>
+                                    >
+                                        <input type="checkbox"
+                                            id="<?php echo $id; ?>"
+                                            name="<?php echo $name; ?>[]"
+                                            value="<?php echo $this->escape($key); ?>"
+                                            <?php if ('RelatedTerms' != $key || '' != $this->form->getValue('bing_api_key')): ?>
+                                                <?php if (in_array($key, $value)): ?>
+                                                    checked="checked"
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                disabled="disabled"
+                                            <?php endif; ?>
+                                        />
+                                        <span><?php echo $this->escape($factor->getLabel()); ?></span>
+                                    </label>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </fieldset>
+                </td>
+            </tr>
+
+            <?php $name = 'extra_content_mode'; ?>
+            <?php $value = $this->form->getValue($name); ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Extra Content Keywords:
+                        (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                    </label>
+                </th>
+                <td>
+                    <fieldset id="<?php echo $name; ?>">
+                        <legend class="screen-reader-text"><span>Extra Content Keywords:</span></legend>
+
+                        <?php $value = $this->form->getValue($name); ?>
+                        <?php foreach ($extraContentModeOptions as $key=>$label): ?>
+                            <?php $id = "{$name}-option-{$key}"; ?>
+                            <label id="<?php echo $id; ?>-label"
+                                for="<?php echo $id; ?>"
+                                class="ops-radio"
+                            >
+                                <input type="radio"
+                                    id="<?php echo $id; ?>"
+                                    name="<?php echo $name; ?>"
+                                    value="<?php echo $key; ?>"
+                                    <?php if ($key == $value): ?>
+                                        checked="checked"
+                                    <?php endif; ?>
+                                />
+                                <span>
+                                    <?php echo $this->escape($label); ?>
+                                </span>
+                            </label>
+                        <?php endforeach; ?>
+                    </fieldset>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <h3>Home Page Meta Fields</h3>
+
+        <table class="form-table">
+        <tbody>
+
+            <?php $name = 'home_meta_title'; ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Title
+                    </label>
+                </th>
+                <td>
+                    <input type="text" name="<?php echo $name; ?>"
+                        id="<?php echo $name; ?>"
+                        class="regular-text"
+                        value="<?php echo $this->escape($this->form->getValue($name)); ?>"
+                    />
+                    (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                </td>
+            </tr>
+
+            <?php $name = 'home_meta_description'; ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Description
+                    </label>
+                </th>
+                <td>
+                    <input type="text" name="<?php echo $name; ?>"
+                        id="<?php echo $name; ?>"
+                        class="regular-text"
+                        value="<?php echo $this->escape($this->form->getValue($name)); ?>"
+                    />
+                    (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                </td>
+            </tr>
+
+            <?php $name = 'home_meta_keywords'; ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Keywords
+                    </label>
+                </th>
+                <td>
+                    <input type="text" name="<?php echo $name; ?>"
+                        id="<?php echo $name; ?>"
+                        class="regular-text"
+                        value="<?php echo $this->escape($this->form->getValue($name)); ?>"
+                    />
+                    (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <h3>Bing API</h3>
+
+        <table class="form-table">
+        <tbody>
+
+            <?php $name = 'bing_api_key'; ?>
+            <tr id="<?php echo $name; ?>-tr">
+                <th scope="row">
+                    <a name="<?php echo $name; ?>"></a>
+                    <label
+                        id="<?php echo $name; ?>-label"
+                        for="<?php echo $name; ?>"
+                    >
+                        Bing API key<br />
+                        (for getting related search terms):
+                    </label>
+                </th>
+                <td>
+                    <input type="text" name="<?php echo $name; ?>"
+                        id="<?php echo $name; ?>"
+                        class="regular-text"
+                        value="<?php echo $this->escape($this->form->getValue($name)); ?>"
+                    />
+                    (<a href="#" class="ops-help-link" data-identifier="<?php echo $name; ?>">help</a>)
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Settings"></p>
+
+    </form>
+</div>
+
+<?php
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'bing_api_key',
+    'title' => 'Bing API key',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'extra_content_mode',
+    'title' => 'Extra Content Keywords',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'auto_optimization',
+    'title' => 'Automatic future SEO',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'default_factors',
+    'title' => 'Default SEO Factors',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'auto_optimization_keyword',
+    'title' => 'Optimize future posts and pages automatically for this keyword',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'home_meta_title',
+    'title' => 'Title',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'home_meta_description',
+    'title' => 'Description',
+));
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'options',
+    'identifier' => 'home_meta_keywords',
+    'title' => 'Keywords',
+));

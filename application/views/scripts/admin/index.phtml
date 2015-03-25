@@ -1,0 +1,426 @@
+<?php
+$this->layout->pageTitle = Ops_WpPlugin::TITLE;
+
+$postTypes = function_exists('get_post_types')
+? get_post_types(array('show_ui' => TRUE, 'show_in_nav_menus' => TRUE), 'objects')
+: array('post' => 'posts' , 'page' => 'pages');
+
+$wpQuery = $this->postQuery->getQueryObject();
+
+$paged    = $this->postQuery->getOption('paged');
+$numPages = $wpQuery->max_num_pages;
+$prevPage = $paged > 1 ? $paged - 1 : 1;
+$nextPage = $paged < $numPages ? $paged + 1 : $numPages;
+
+$orderby  = $this->postQuery->getOption('orderby');
+$order    = $this->postQuery->getOption('order');
+$search   = $this->postQuery->getOption('s');
+$selectedCategory = $this->postQuery->getOption('cat');
+
+$selectedPostType = $this->formNavigation->getValue('post_type');
+
+$postTypeInfo = $postTypes[$selectedPostType];
+$postCountsByStatus = (array) wp_count_posts($selectedPostType);
+
+$postStatuses = array(
+    'publish'   => __('Published'),
+    'future'    => __('Scheduled'),
+    'private'   => __('Private'),
+    'pending'   => __('Pending Review'),
+    'draft'     => __('Draft'),
+);
+// Update with built-in labels jus tin case:
+foreach (get_post_stati(array(), 'objects') as $name=>$statusInfo) {
+    if (!isset($postStatuses[$name])) {
+        continue;
+    }
+    if (isset($statusInfo->label)) {
+        $postStatuses[$name] = $statusInfo->label;
+    }
+}
+
+$totalPostCount = 0;
+foreach ($postCountsByStatus as $name=>$count) {
+    if (0 == $count || !array_key_exists($name, $postStatuses)) {
+        unset($postCountsByStatus[$name]);
+        continue;
+    }
+
+    $totalPostCount += $count;
+}
+$displayPostCount = $wpQuery->post_count;
+
+$postCountsByStatus = array_merge(array('any' => $totalPostCount),
+    $postCountsByStatus);
+$postStatuses['any'] = __('All');
+
+$selectedPostStatus = $wpQuery->query_vars['post_status'];
+
+$selectedPosts = 'optimize' == $this->command
+    ? (array) $this->formOptimization->getValue('selected')
+    : array();
+
+$columns = array(
+    'ID'      => array('label' => 'ID',      'width' => '60',  'sortable' => TRUE ),
+    'title'   => array('label' => 'Title',   'width' => '',      'sortable' => TRUE ),
+    'keyword' => array('label' => 'Keyword', 'width' => '',      'sortable' => TRUE ),
+    'tbutton' => array('label' => '',        'width' => '140', 'sortable' => FALSE),
+    'date'    => array('label' => 'Date',    'width' => '200', 'sortable' => TRUE ),
+    'obutton' => array('label' => '',        'width' => '100', 'sortable' => FALSE),
+);
+
+$extraContentModeOptions = Ops_Application::getService('Optimization')
+    ->getExtraContentModeOptions();
+?>
+<div class="form-wrap">
+    <form id="ops_admin" class="ops_admin-screen-main" action="" method="post">
+        <input type="hidden" name="command" id="command" value="" />
+        <input type="hidden" name="post_status" id="post_status" value="<?php echo $selectedPostStatus; ?>" />
+        <input type="hidden" name="_paged" id="paged-hidden" value="" />
+        <input type="hidden" name="orderby" id="orderby" value="<?php echo $orderby; ?>" />
+        <input type="hidden" name="order" id="order" value="<?php echo $order; ?>" />
+
+        <input type="hidden" name="old[s]" id="old-s" value="<?php echo $this->escape($search); ?>" />
+        <input type="hidden" name="old[cat]" id="old-cat" value="<?php echo $selectedCategory; ?>" />
+        <input type="hidden" name="old[order]" id="old-order" value="<?php echo $order; ?>" />
+        <input type="hidden" name="old[orderby]" id="old-orderby" value="<?php echo $orderby; ?>" />
+        <input type="hidden" name="old[post_type]" id="old-post_type" value="<?php echo $selectedPostType; ?>" />
+        <input type="hidden" name="old[post_stastus]" id="old-post_status" value="<?php echo $selectedPostStatus; ?>" />
+
+        <div id="ops_optimizing-progress">
+             <div id="ops_optimizing-status">
+                <button type="button" class="button-secondary ops_optimizing-cancel">Cancel</button>
+                <img class="ajax-loading ops_ajax-optimizing"
+                    src="<?php echo esc_url(admin_url('images/wpspin_light.gif')); ?>"
+                    alt="Optimize..." width="16" height="16"
+                />
+                <span class="ops_optimizing-status-text">Processing... post
+                    <span id="ops_optimizing-current"></span> of <span id="ops_optimizing-all"></span>&nbsp;
+                </span>
+             </div>
+             <div id="ops_optimizing-progressbar"></div>
+        </div>
+
+        <?php if ($displayPostCount): ?>
+            <div class="postbox ops_factor_list-container">
+                <h3>
+                    <span class="ops_title">Use these settings for all posts and pages below:</span>
+                </h3>
+                <div class="inside" id="ops_factors">
+                    <label for="ops_factor-all" id="ops_factor-all-label">
+                        <input id="ops_factor-all" name="ops_factor-all"
+                            type="checkbox"
+                        />
+                        <span>Check/Uncheck All</span>
+                    </label>
+
+                    <?php $value = (array)$this->formOptimization->getValue('factors'); ?>
+                    <ul class="ops_admin-input-factors" id="ops_admin-input-factors">
+                        <?php foreach (Ops_Application::getService('Optimization')->getFactors() as $name=>$factor): ?>
+                            <li class="ops_admin-factor">
+                                <label class="ops_admin-factors_bool" for="ops_admin-factor-<?php echo $this->escape($name); ?>">
+                                    <input type="checkbox" id="ops_admin-factor-<?php echo $this->escape($name); ?>"
+                                        name="factors[]" value="<?php echo $this->escape($name); ?>"
+                                        <?php if (in_array($name, $value) && $factor->isConfigured()): ?>
+                                            checked="checked"
+                                        <?php endif; ?>
+                                        <?php if (!$factor->isConfigured()): ?>
+                                            disabled="disabled"
+                                        <?php endif; ?>
+                                    />
+                                    <span><?php echo $this->escape($factor->getLabel()); ?></span>
+                                    <?php if (!$factor->isConfigured()): ?>
+                                        (<a href="<?php echo admin_url('admin.php?page=' . Ops_WpPlugin::SLUG . '-options'); ?>">configure</a>)
+                                    <?php endif; ?>
+                                </label>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <?php $value = $this->formOptimization->getValue('extra_content_mode-mass'); ?>
+                    <div id="extra_content_mode-field">
+                        <label id="extra_content_mode-label" for="extra_content_mode">
+                            Extra Content Keywords:
+                            <span class="ops-help-link-wrap">(<a href="#" class="ops-help-link" data-identifier="extra_content_mode">help</a>)</span>
+                        </label>
+                        <fieldset id="extra_content_mode">
+                            <legend class="screen-reader-text"><span>Extra Content Keywords:</span></legend>
+
+                            <?php $id = "extra_content_mode-option-default"; ?>
+                            <label id="<?php echo $id; ?>-label"
+                                for="<?php echo $id; ?>"
+                                class="ops-radio"
+                            >
+                                <input type="radio"
+                                    id="<?php echo $id; ?>"
+                                    class="ops-extra_content_mode-option"
+                                    name="extra_content_mode-mass"
+                                    value=""
+                                    <?php if ('' == $value): ?>
+                                        checked="checked"
+                                    <?php endif; ?>
+                                />
+                                <span>
+                                    Use general setting
+                                    <em>(<?php echo $this->escape($extraContentModeOptions[Ops_Application::getModel('Options')->getValue('extra_content_mode')]); ?>)</em>
+                                </span>
+                            </label>
+
+                            <?php foreach ($extraContentModeOptions as $key=>$label): ?>
+                                <?php $id = "extra_content_mode-option-{$key}"; ?>
+                                <label id="<?php echo $id; ?>-label"
+                                    for="<?php echo $id; ?>"
+                                    class="ops-radio"
+                                >
+                                    <input type="radio"
+                                        class="ops-extra_content_mode-option"
+                                        id="<?php echo $id; ?>"
+                                        name="extra_content_mode-mass"
+                                        value="<?php echo $key; ?>"
+                                        <?php if ($key == $value): ?>
+                                            checked="checked"
+                                        <?php endif; ?>
+                                    />
+                                    <span>
+                                        <?php echo $this->escape($label); ?>
+                                    </span>
+                                </label>
+                            <?php endforeach; ?>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div>
+                 <button type="button" name="ops_optimize-submit-top" id="ops_optimize-submit-top"
+                     class="button-primary ops_optimization-submit"
+                 >
+                     Mass Optimize!
+                 </button>
+                 <button type="button" id="ops_set_all_keywords-top"
+                    class="button-secondary ops_set_all_keywords-button"
+                 >
+                    Copy titles in empty keyword fields
+                 </button>
+            </div>
+        <?php endif; ?>
+
+        <div class="tablenav">
+            <div id="ops_post-type-container" class="left-col">
+                <span>Optimize:</span>
+                <?php foreach ($postTypes as $name=>$postType): ?>
+                    <label class="ops_post-type" for="ops_post-type-<?php echo $this->escape($name); ?>">
+                        <input type="radio" id="ops_post-type-<?php echo $this->escape($name); ?>"
+                            class="ops_post-type" name="post_type"
+                            value="<?php echo $this->escape($name); ?>"
+                            <?php if ($name == $selectedPostType): ?>
+                                checked="checked"
+                                <?php endif; ?>
+                        />
+                        <?php if (is_object($postType)): ?>
+                            <?php echo $this->escape(strtolower($postType->labels->name)); ?>
+                            <?php else: ?>
+                            <?php echo $postType; ?>
+                            <?php endif; ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+            <?php if ($totalPostCount): ?>
+                <div class="ops_search-box right-col">
+                    <input type="text" id="post-search-input" name="s"
+                        class="ops_navigation-text"
+                        value="<?php echo $this->escape($search); ?>"
+                    />
+                    <input type="submit" name="" id="ops_search-submit" class="button"
+                        value="<?php echo $this->escape($postTypeInfo->labels->search_items); ?>"
+                    />
+                </div>
+           <?php endif; ?>
+        </div>
+
+        <?php if ($totalPostCount): ?>
+            <div class="tablenav">
+                <div class="left-col">
+                    <ul class="subsubsub ops_post_status-list">
+                        <?php $i = 0; ?>
+                        <?php foreach ($postCountsByStatus as $name=>$count):?>
+                            <li class="ops_post_status">
+                                <a href="#"
+                                    class="ops_post_status-link <?php if($selectedPostStatus == $name):?>current<?php endif;?>"
+                                    data-post_status="<?php echo $this->escape($name); ?>"
+                                >
+                                    <?php echo $this->escape(isset($postStatuses[$name])? $postStatuses[$name] : ucfirst($name)); ?>
+                                    <span class="count">(<?php echo $count; ?>)</span>
+                                    <?php $i++; ?>
+                                </a> <?php if(count($postCountsByStatus) != $i):?>|<?php endif;?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="ops_posts_per_page-container right-col">
+                    <span>Show&nbsp;</span>
+                    <input type="text" name="posts_per_page" class="ops_posts_per_page ops_navigation-text"
+                        value="<?php echo $this->formNavigation->getValue('posts_per_page'); ?>"
+                    />
+                    <span><?php echo $this->escape(strtolower($postTypeInfo->labels->name)); ?></span>
+                    <input type="submit" name="ops_options-submit" id="ops_options-submit"
+                        class="button-secondary action" value="Submit"
+                    />
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($totalPostCount): ?>
+            <div class="tablenav top">
+                <?php
+                    wp_dropdown_categories(array(
+                            'show_option_all' => __( 'View all categories' ),
+                            'hide_empty' => 0,
+                            'hierarchical' => 1,
+                            'show_count' => 0,
+                            'orderby' => 'name',
+                            'name' => 'cat',
+                            'selected' => $selectedCategory,
+                   ));
+                ?>
+                <input type="submit" id="ops_cat-submit" class="button-secondary" value="Filter" />
+
+                <?php if ($displayPostCount): ?>
+                    <?php $navType = 'top'; ?>
+                    <?php require '_partial/navigation.phtml';  ?>
+                    <?php endif; ?>
+            </div>
+            <?php endif; ?>
+
+        <div id="ops_admin-table-posts">
+            <table class="wp-list-table widefat fixed" cellspacing="0">
+                <colgroup>
+                    <col width="60" />
+                    <?php foreach ($columns as $column): ?>
+                        <col <?php if ('' != $column['width']): ?> width="<?php echo $column['width']; ?>" <?php endif; ?> />
+                    <?php endforeach; ?>
+                </colgroup>
+                <thead><?php require '_partial/tableHead.phtml'; ?></thead>
+                <tfoot><?php require '_partial/tableHead.phtml'; ?></tfoot>
+                <tbody>
+                    <?php if(0 == $displayPostCount): ?>
+                        <tr>
+                            <td colspan="7"><?php echo $this->escape($postTypeInfo->labels->not_found); ?></td>
+                        </tr>
+                        <?php else: ?>
+                        <?php foreach ((array)($wpQuery->posts) as $post ): ?>
+                            <?php
+                                $meta = Ops_Application::getModel('Post_Meta')->setPostId($post->ID);
+                                $keyword = $meta->getValue('keyword');
+                            ?>
+                            <tr id="ops_admin-table-row-<?php echo $post->ID; ?>" class="ops_admin-table-row">
+                            <th scope="row" class="checkbox-column">
+                                <input type="checkbox" name="selected[]" class="ops_selected"
+                                    value="<?php echo $post->ID; ?>"
+                                    <?php if ((!$selectedPosts || in_array($post->ID, $selectedPosts)) && ('' != $keyword)): ?>
+                                        checked="checked"
+                                    <?php endif; ?>
+                                />
+                                <span class="ops_status <?php if ('' != $keyword): ?> ops_status_optimize-yes <?php endif;?>"></span>
+                            </th>
+                            <td class="id-column text-column">
+                                <span><?php echo $post->ID; ?></span>
+                            </td>
+                            <td class="title-column text-column">
+                                <strong>
+                                    <a href="<?php echo get_edit_post_link($post->ID, 'display'); ?>"
+                                        title="<?php echo $this->escape($post->post_title); ?>"
+                                        target="_blank"
+                                    >
+                                        <?php echo $this->escape($this->limitStringLength($post->post_title, 66)); ?>
+                                    </a>
+                                    <?php if(function_exists('_post_states')) {_post_states($post);} ?>
+                                </strong>
+                            </td>
+                            <td class="keyword-column">
+                                <input type="text" name="keyword[<?php echo $post->ID;?>]"
+                                    class="ops_keyword"
+                                    data-post_id="<?php echo $post->ID;?>"
+                                    value="<?php echo $this->escape($keyword); ?>"
+                                />
+                                <input type="hidden" class="ops_title"
+                                    value="<?php echo $this->escape($post->post_title); ?>"
+                                />
+                            </td>
+                            <td class="tools-column">
+                                <button type="button"
+                                    class="button-secondary ops_set_keyword_item-button"
+                                    data-id ="<?php echo $post->ID; ?>"
+                                    data-title="<?php echo $this->escape($post->post_title); ?>"
+                                >
+                                    Set title as keyword
+                                </button>
+                            </td>
+                            <td class="date-column text-column">
+                                <span>
+                                    <?php
+                                        $items = explode(' ', $post->post_date);
+                                        echo str_replace('-', '/', $items[0]);
+                                    ?>
+                                </span>
+                                <span>
+                                    <?php if ('publish' == $post->post_status): ?>
+                                        <?php _e('Published'); ?>
+                                        <?php elseif ('future' == $post->post_status): ?>
+                                        <?php _e('Sheduled'); ?>
+                                        <?php else: ?>
+                                        <?php _e( 'Last Modified' ); ?>
+                                    <?php endif; ?>
+                                </span>
+                            </td>
+                            <td id ="ops_optimizing-<?php echo $post->ID;?>" class="tools-column">
+                                <button type="button" class="button-secondary ops_optimizing_item-button">
+                                    Optimize!
+                                </button>
+                                <span class="ops_optimizing_item-status">
+                                    <img class="ajax-loading ops_ajax-optimizing"
+                                        src="<?php echo esc_url(admin_url('images/loading.gif')); ?>"
+                                        alt="Optimize..." width="16" height="16"
+                                    />
+                                    Processing...
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                </tbody>
+            </table>
+        </div>
+        <?php if ($displayPostCount): ?>
+            <div class="tablenav bottom">
+                <span id="ops_optimize-box">
+                    <button type="button" name="ops_optimize-submit-top" id="ops_optimize-submit-top"
+                        class="button-primary ops_optimization-submit">
+                        Mass Optimize!
+                    </button>
+                </span>
+                <span>
+                    <button type="button" id="ops_set_all_keywords-bottom"
+                        class="button-secondary ops_set_all_keywords-button"
+                    >
+                        Copy titles in empty keyword fields
+                    </button>
+                </span>
+                <?php $navType = 'bottom'; ?>
+                <?php require '_partial/navigation.phtml'; ?>
+            </div>
+        <?php endif; ?>
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(function($) {
+        $('#ops-page-loading').remove();
+    });
+</script>
+
+<?php
+echo $this->partial('_help/popup.phtml', array(
+    'folder' => 'admin',
+    'identifier' => 'extra_content_mode',
+    'title' => 'Extra Content Keywords',
+));

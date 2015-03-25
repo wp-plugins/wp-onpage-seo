@@ -1,0 +1,12 @@
+<?php
+$this->layout->hideHeaderTabs = TRUE;
+?>
+
+<p>Your posts per page setting was reset to default value.<br />
+<p>If this doesn't help please contact customer support for the plug-in.</p>
+
+<p>Redirecting back to <a href="<?php echo $this->adminUrl(); ?>">Mass Optimization screen</a>.</p>
+
+<script type="text/javascript">
+    window.location = '<?php echo $this->adminUrl(NULL, FALSE);?>';
+</script>

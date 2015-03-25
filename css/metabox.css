@@ -1,0 +1,153 @@
+/**
+* WP On-Page SEO Metabox styles
+*/
+.ops_metabox-toolbar_top {
+    float: right;
+}
+
+.ops_metabox-toolbar_top .button-primary {
+    /*min-width: 80px;*/
+}
+
+#ops_metabox .ajax-loading {
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+.ops_metabox-message li {
+    padding: 0.5em;
+}
+
+.ops_metabox-message li.error {
+    background-color: #FFEBE8;
+    border-color: #C00;
+    border-width: 1px;
+    border-style: solid;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#ops_metabox-input-factors {
+    font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+    font-size: 90%;
+}
+
+#ops_metabox-factor-all-label,
+#ops_extra_content_mode-label {
+    font-weight: bold;
+}
+
+#ops_metabox-input-factors li {
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+    padding-left: 20px;
+    padding-top: 1px;
+    margin-bottom: 0;
+    min-height: 18px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#ops_metabox-input-factors li input[type="checkbox"] {
+    background-color: white;
+}
+
+.ops_metabox-factor_yes {
+    background-image: url('../images/factor_yes.png');
+}
+
+.ops_metabox-factor_no {
+    background-image: url('../images/factor_no.png');
+}
+
+.ops_metabox-factor_none {
+
+}
+
+.ops_metabox-factor_na {
+    background-image: url('../images/factor_na.png');
+}
+
+.ops_metabox-factor_na label span {
+    color: darkGrey;
+}
+
+.ops_metabox-field label {
+    display: block;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.ops_metabox-field .ops_input {
+    display: block;
+    width: 100%;
+}
+
+.ops_metabox-lsi_toolbar {
+    text-align: right;
+    margin-bottom: 0.5em;
+}
+
+.ops_metabox-lsi_list {
+    background: white;
+}
+
+.ops_metabox-lsi_list_placeholder ul {
+    padding: 0.25em;
+}
+
+.ops_metabox-lsi_list_control {
+    float: right;
+    height: 23px;
+    padding: 2px 2px 4px 0.5em;
+    display: block;
+    margin-right: 2px;
+}
+
+.ops_metabox-lsi_list_placeholder ul li {
+    float: left;
+    margin-right: 0.25em;
+    min-height: 16px;
+    padding: 2px 4px 0 16px;
+    background-image: url('../images/lsi_keyword.png');
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+    min-height: 16px;
+    vertical-align: middle;
+    background-color: #F2F2F2;
+    border-color: #BBB;
+    color: #464646;
+    text-decoration: none;
+    font-size: 11px;
+    font-family: sans-serif;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -moz-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -khtml-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+#ops_keyword-label {
+    font-weight: bold;
+}
+
+.ops_metabox-button_update-container {
+    float: right;
+}
+
+.ops_metabox-links {
+    padding-top: 1em;
+    line-height: 1.4em;
+}
+
+.ops_metabox-links {
+    text-align: center;
+}
