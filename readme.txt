@@ -1,6 +1,6 @@
 === WP On-Page SEO ===
 Contributors: mag_oberon
-Tags: on page, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, seo optimization, on-page, on-page optimization, on-page seo
+Tags: on page, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
 Requires at least: 3.0
 Tested up to: 4.1.1
 Stable tag: trunk
