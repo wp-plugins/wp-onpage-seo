@@ -3,7 +3,7 @@
 /*
 Plugin Name: WP On-Page SEO
 Plugin URI: http://www.wpthorp.com/
-Description: User Friendly WordPress On-Page SEO plugin to gets your site on page 1 of Google with just few simple steps.
+Description: Improve your WordPress On-Page SEO by Using WP On-Page SEO Plugin and Gets Your Site on Google 1st Page.
 Author: Ataul Ghani
 Version: 1.0
 Author URI: http://www.wpthorp.com/
