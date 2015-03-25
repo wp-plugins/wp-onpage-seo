@@ -11,13 +11,15 @@ Improve your WordPress On-Page SEO by Using WP On-Page SEO Plugin and Gets Your 
 
 == Description ==
 
-Why Need WP On-Page SEO Plugin?
+Improve your WordPress On-Page SEO: Write better content and have a fully optimized WordPress site using WP On-Page SEO plugin and gets your site on Google 1st page. In WordPress search engine optimization, on-page optimization refers to factors that have an effect on your Web site or Web page listing in natural search results.These factors are controlled by you or by coding on your page. Examples of on-page optimization include actual HTML code, meta tags, keyword placement and keyword density.
+
+<strong>Why Need WP On-Page SEO Plugin?</strong>
 
 1. You may be relatively new to Search Engine Optimization and you don't know exactly how to optimize your posts for search engines like Google.
 
 2. Even if you do know that your posts and pages should be optimized for the search engines, you never really do it. There are just too many details like "include the keyword in the title, URL, alt tag of images etc." Imagine doing this for 10s or 100ds of posts and pages. It would take weeks! Even if your content is great, it will never attract the traffic it deserves, if it's not properly optimized. If you optimize your posts better than your competitors, you have a better chance of getting higher rankings and traffic.
 
-Visit Support Blog to Get Instant Help: http://www.wpthorp.com/wp-on-page-seo-plugin/
+Visit Support Blog for Instant Help: http://www.wpthorp.com/wp-on-page-seo-plugin/
 
 == Installation ==
 
