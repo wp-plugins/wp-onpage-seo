@@ -11,7 +11,7 @@ User Friendly WordPress plugin to gets your site on page 1 of Google with just f
 
 == Description ==
 
-Why Need WP On-Page SEO Pro Plugin?
+Why Need WP On-Page SEO Plugin?
 
 1. You may be relatively new to Search Engine Optimization and you don't know exactly how to optimize your posts for search engines like Google.
 
