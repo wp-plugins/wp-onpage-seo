@@ -7,11 +7,11 @@ Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Improve WordPress SEO by Using WP On-Page SEO Plugin and Gets Your Site on Google 1st Page.
+Improve Your Website's Google Ranking by Using WP On-Page SEO Plugin and Get On the First Page of Google.
 
 == Description ==
 
-Improve WordPress SEO: Write better content and have a fully optimized WordPress site using WP On-Page SEO plugin and gets your site on Google 1st page. In WordPress search engine optimization, on-page optimization refers to factors that have an effect on your Web site or Web page listing in natural search results.These factors are controlled by you or by coding on your page. Examples of on-page optimization include actual HTML code, meta tags, keyword placement and keyword density.
+Improve WordPress SEO: Write better content and have a fully optimized WordPress site using WP On-Page SEO plugin and get on the first page of Google. In WordPress search engine optimization, on-page optimization refers to factors that have an effect on your Web site or Web page listing in natural search results.These factors are controlled by you or by coding on your page. Examples of on-page optimization include actual HTML code, meta tags, keyword placement and keyword density.
 
 <strong>Why Need WP On-Page SEO Plugin?</strong>
 
