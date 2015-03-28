@@ -7,7 +7,7 @@ Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Improve your WordPress On-Page SEO by Using WP On-Page SEO Plugin and Gets Your Site on Google 1st Page.
+Improve WordPress On-Page SEO by Using WP On-Page SEO Plugin and Gets Your Site on Google 1st Page.
 
 == Description ==
 
