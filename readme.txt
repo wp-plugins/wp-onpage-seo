@@ -13,6 +13,8 @@ Improve Your Website's Google Ranking by Using WordPress On-Page SEO Plugin and 
 
 Improve WordPress SEO: Write better content and have a fully optimized WordPress site using WP On-Page SEO plugin and get on the first page of Google. In WordPress search engine optimization, on-page optimization refers to factors that have an effect on your Web site or Web page listing in natural search results.These factors are controlled by you or by coding on your page. Examples of on-page optimization include actual HTML code, meta tags, keyword placement and keyword density.
 
+<strong>*****Please Leave a 5 stars review on this plugin!*****</strong>
+
 <strong>Why Need WP On-Page SEO Plugin?</strong>
 
 1. You may be relatively new to Search Engine Optimization and you don't know exactly how to optimize your posts for search engines like Google.
