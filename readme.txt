@@ -16,6 +16,7 @@ Improve WordPress SEO: Write better content and have a fully optimized WordPress
 <blockquote>
 <strong><p>This is first and only plugin on WordPress.org to optimize your website On Page SEO. By using this plugin you will be able to improve your website priority on Google search.
 Please don't forget to say thanks by giving a 5 stars review. And if you think this is really helpful plugin then share this plugin with other friends!</p></strong>
+<p>Any Issue? Instant Help: http://www.wpthorp.com/wp-on-page-seo-plugin/</p>
 </blockquote>
 
 <strong>Why Need WP On-Page SEO Plugin?</strong>
