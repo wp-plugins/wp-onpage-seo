@@ -3,8 +3,8 @@
 */
 
 .ops-help-header {
-    background-color: #DBDBDB;
-    border-bottom: 1px solid #C6C6C6;
+    background-color: #fff;
+    border-bottom: 2px solid #333;
     height: 16px;
     padding: 5px 5px 5px 5px;
     font-weight: bold;
@@ -12,8 +12,8 @@
 }
 
 .ops-help-footer {
-    background-color: #DBDBDB;
-    border-bottom: 1px solid #C6C6C6;
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
     height : 16px;
     padding: 5px 5px 5px 5px;
     font-weight: bold;
@@ -49,7 +49,7 @@
     top: 50%;
     margin-top: -200px;
     background-color: white;
-    border: 4px double #d54e21;
+    border: 3px solid #5bbc2e;
     padding: 5px;
 }
 

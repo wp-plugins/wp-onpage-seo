@@ -1,8 +1,8 @@
 === WP On-Page SEO ===
 Contributors: mag_oberon
-Tags: on page, google, post tag, keyword, tags, tag, meta, meta tag, title tag, keyword tag, keywords, google rank, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
-Requires at least: 3.0
-Tested up to: 4.1.1
+Tags: on page, google, post tag, seo rank, seo tool, wordpress seo, wp seo, keyword, tags, tag, meta, meta tag, title tag, keyword tag, keywords, google rank, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
+Requires at least: 3.8+
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
