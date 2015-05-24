@@ -1,13 +1,13 @@
 === WP On-Page SEO ===
 Contributors: mag_oberon
-Tags: on page, google, post tag, seo rank, seo tool, wordpress seo, wp seo, keyword, tags, tag, meta, meta tag, title tag, keyword tag, keywords, google rank, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
+Tags: on page, google, web traffic, traffic rank, traffic, website traffic, post tag, seo rank, seo tool, wordpress seo, wp seo, keyword, tags, tag, meta, meta tag, title tag, keyword tag, keywords, google rank, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
 Requires at least: 3.8+
 Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Improve Your Website's Google Ranking by Using WordPress On-Page SEO Plugin and Get On the First Page of Google.
+Improve Your Website Traffic by Using WordPress On-Page SEO Plugin and Get On the First Page of Google.
 
 == Description ==
 
@@ -16,7 +16,7 @@ Improve WordPress SEO: Write better content and have a fully optimized WordPress
 <blockquote>
 <p>This is first and only plugin on WordPress.org to optimize your website On Page SEO. By using this plugin you will be able to improve your website priority on Google search.
 Please don't forget to <strong>say thanks by giving a 5 stars review</strong>. And if you think this is really helpful plugin then share this plugin with other friends!</p>
-<p>Support Blog & Pro Installation: http://www.wpthorp.com/wp-on-page-seo-plugin/</p>
+<p>Support & Pro Installation: http://www.wpthorp.com/wp-on-page-seo-plugin/</p>
 </blockquote>
 
 <strong>Why Need WP On-Page SEO Plugin?</strong>

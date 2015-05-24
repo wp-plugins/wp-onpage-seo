@@ -3,9 +3,9 @@
 /*
 Plugin Name: WP On-Page SEO
 Plugin URI: http://www.wpthorp.com/
-Description: Improve Your Website's Google Ranking by Using WP On-Page SEO Plugin and Get On the First Page of Google.
+Description: Improve Your Website Traffic by Using WP On-Page SEO Plugin and Get On the First Page of Google.
 Author: Ataul Ghani
-Version: 1.3
+Version: 1.4
 Author URI: http://www.wpthorp.com/
 Tested up to: 4.1.1
 */
