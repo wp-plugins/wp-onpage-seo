@@ -1,6 +1,6 @@
 === WP On-Page SEO ===
 Contributors: mag_oberon
-Tags: on page, google, web traffic, traffic rank, traffic, website traffic, post tag, seo rank, seo tool, wordpress seo, wp seo, keyword, tags, tag, meta, meta tag, title tag, keyword tag, keywords, google rank, seo plugin, seo, wp seo, wordpress seo, post seo, content seo, page seo, plugin, on-page, on-page-seo
+Tags: onpage,google,web traffic,traffic rank,traffic,website traffic,post tag,seo rank,seo tool,wordpress seo,wp seo,keyword,tags,tag,meta,meta tag,title tag,keyword tag,keywords,google rank,seo plugin,seo,wordpress seo,post seo,content seo,page seo,plugin
 Requires at least: 3.8+
 Tested up to: 4.2.2
 Stable tag: trunk
